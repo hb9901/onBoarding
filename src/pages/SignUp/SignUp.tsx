@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
+import api from "../../api/api";
 import TextInput from "../../components/TextInput/TextInput";
 import { signUpSchema } from "./signUpSchema";
 
@@ -14,7 +15,9 @@ const SignUp = () => {
 
   const onSubmit = async (value: FieldValues) => {
     signUpSchema.parse(value);
-    console.log(value);
+    const reponse = await api.auth.signUp(value);
+    if(reponse.success) alert("회원가입 성공!")
+    else alert(reponse.message);
   };
 
   return (
