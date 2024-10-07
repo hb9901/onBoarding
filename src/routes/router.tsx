@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
+import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
 import DefaultLayout from "./DefaultRouter";
 import PrivateRouter from "./PrivateRouter";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         element: <MyPage />,
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <NotFound />,
   },
 ]);
 
