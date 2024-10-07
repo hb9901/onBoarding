@@ -1,5 +1,5 @@
 import axios from "axios";
-import SingUpAPI from "./signUp.api";
+import AuthAPI from "./auth.api";
 
 const AUTH_BASE_URL = import.meta.env.VITE_AUTH_BASE_URL;
 
@@ -11,7 +11,7 @@ class API {
   constructor() {
     this.#authAxios = axios.create({ baseURL: AUTH_BASE_URL });
 
-    this.auth = new SingUpAPI(this.#authAxios);
+    this.auth = new AuthAPI(this.#authAxios);
   }
 }
 

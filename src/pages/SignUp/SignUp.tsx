@@ -16,7 +16,7 @@ const SignUp = () => {
   const onSubmit = async (value: FieldValues) => {
     signUpSchema.parse(value);
     const reponse = await api.auth.signUp(value);
-    if(reponse.success) alert("회원가입 성공!")
+    if (reponse.success) alert("회원가입 성공!");
     else alert(reponse.message);
   };
 
