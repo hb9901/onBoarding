@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import userInfoLoader from "../loaders/userInfo.loader";
 import Login from "../pages/Login";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/mypage",
         element: <MyPage />,
+        loader: () => userInfoLoader(),
       },
     ],
   },

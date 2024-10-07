@@ -1,20 +1,26 @@
 import axios, { AxiosInstance } from "axios";
 import { FieldValues } from "react-hook-form";
-import { getCookie, setCookie } from "../utils/cookieFunctions";
+import { TrequestUserInfo } from "../types/userInfo.type";
+import { setCookie } from "../utils/cookieFunctions";
 
 class authAPI {
   #axios: AxiosInstance;
+  #accessToken: string | null;
 
   constructor(axios: AxiosInstance) {
-    const accessToken = getCookie("accessToken");
     this.#axios = axios;
+    this.#accessToken = null;
 
     this.#axios.interceptors.request.use((config) => {
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+      if (this.#accessToken) {
+        config.headers.Authorization = `Bearer ${this.#accessToken}`;
       }
       return config;
     });
+  }
+
+  updateAccessToken(token: string) {
+    this.#accessToken = token;
   }
 
   async signUp(userInfo: FieldValues) {
@@ -42,9 +48,11 @@ class authAPI {
       const accessToken = responseData.accessToken;
 
       if (accessToken) {
+        this.#accessToken = accessToken;
         setCookie("accessToken", accessToken, {
           path: "/",
           secure: "/",
+          expires: new Date(Date.now() + 60 * 1000),
         });
       }
 
@@ -66,7 +74,23 @@ class authAPI {
         "Content-Type": "application/json",
       },
     });
-    return response;
+    const reponseData = response.data;
+    return reponseData;
+  }
+
+  async updateUserInfo({ avatar, nickname }: TrequestUserInfo) {
+    const path = "/profile";
+    const formData = new FormData();
+    if (avatar) formData.append("avatar", avatar);
+    formData.append("nickname", nickname);
+
+    const response = await this.#axios.patch(path, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const reponseData = response.data;
+    return reponseData;
   }
 }
 

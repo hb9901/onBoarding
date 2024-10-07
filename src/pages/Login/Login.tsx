@@ -17,7 +17,7 @@ const Login = () => {
     const onSubmit = async (value: FieldValues) => {
       logInSchema.parse(value);
       const reponse = await api.auth.logIn(value, EXPIRE_TIME);
-      console.log(reponse);
+
       if (reponse.success) alert("로그인 성공!");
       else alert(reponse.message);
     };
