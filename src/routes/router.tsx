@@ -1,21 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
+import Layout from "../components/Layout";
 import userInfoLoader from "../loaders/userInfo.loader";
 import Login from "../pages/Login";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
 import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
-import DefaultRouter from "./DefaultRouter";
 import PrivateRouter from "./PrivateRouter";
+import PublicRouter from "./PublicRouter";
 
 const router = createBrowserRouter([
   {
-    element: <DefaultRouter />,
+    element: <Layout />,
     children: [
       {
         path: "/",
         element: <Main />,
       },
+    ],
+    loader: () => userInfoLoader(),
+  },
+  {
+    element: <PublicRouter />,
+    children: [
       {
         path: "/login",
         element: <Login />,

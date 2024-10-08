@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/api";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput/TextInput";
+import useAuth from "../../hooks/useAuth";
 import { logInSchema } from "./LoginSchema";
 
 const Login = () => {
   const navigate = useNavigate();
-  const EXPIRE_TIME = 10;
+  const { logIn } = useAuth({});
   const {
     register,
     handleSubmit,
@@ -19,7 +19,7 @@ const Login = () => {
 
   const onSubmit = async (value: FieldValues) => {
     logInSchema.parse(value);
-    const reponse = await api.auth.logIn(value, EXPIRE_TIME);
+    const reponse = await logIn(value);
 
     if (reponse.success) {
       alert("로그인 성공!");

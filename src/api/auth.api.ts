@@ -1,26 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import { FieldValues } from "react-hook-form";
 import { TrequestUserInfo } from "../types/userInfo.type";
-import { setCookie } from "../utils/cookieFunctions";
+import { getCookie, setCookie } from "../utils/cookieFunctions";
 
 class authAPI {
   #axios: AxiosInstance;
-  #accessToken: string | null;
 
   constructor(axios: AxiosInstance) {
     this.#axios = axios;
-    this.#accessToken = null;
-
-    this.#axios.interceptors.request.use((config) => {
-      if (this.#accessToken) {
-        config.headers.Authorization = `Bearer ${this.#accessToken}`;
-      }
-      return config;
-    });
-  }
-
-  updateAccessToken(token: string) {
-    this.#accessToken = token;
   }
 
   async signUp(userInfo: FieldValues) {
@@ -48,11 +35,10 @@ class authAPI {
       const accessToken = responseData.accessToken;
 
       if (accessToken) {
-        this.#accessToken = accessToken;
         setCookie("accessToken", accessToken, {
           path: "/",
           secure: "/",
-          expires: new Date(Date.now() + 60 * 1000),
+          expires: new Date(Date.now() + EXPIRE_TIME * 60 * 1000),
         });
       }
 
@@ -68,18 +54,26 @@ class authAPI {
   }
 
   async getUserInfo() {
-    const path = "/user";
-    const response = await this.#axios.get(path, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const reponseData = response.data;
-    return reponseData;
+    const accessToken = getCookie("accessToken");
+    try {
+      const path = "/user";
+      const response = await this.#axios.get(path, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const reponseData = response.data;
+      return reponseData;
+    } catch (error) {
+      console.log(error);
+      return { message: error, success: false };
+    }
   }
 
   async updateUserInfo({ avatar, nickname }: TrequestUserInfo) {
     const path = "/profile";
+    const accessToken = getCookie("accessToken");
     const formData = new FormData();
     if (avatar) formData.append("avatar", avatar);
     formData.append("nickname", nickname);
@@ -87,6 +81,7 @@ class authAPI {
     const response = await this.#axios.patch(path, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     const reponseData = response.data;

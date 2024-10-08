@@ -5,7 +5,6 @@ async function userInfoLoader() {
   const accessToken = getCookie("accessToken");
   if (!accessToken) return { success: false };
 
-  api.auth.updateAccessToken(accessToken);
   const data = await api.auth.getUserInfo();
   return data;
 }

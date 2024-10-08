@@ -1,9 +1,11 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import YoloIcon from "../../../icons/YoloIcon.svg";
 import { TuserInfo } from "../../../types/userInfo.type";
 
 const Header = () => {
   const data = useLoaderData() as TuserInfo;
+  const { userInfo } = useAuth({ enabled: true, initialData: data });
   const navigate = useNavigate();
   const handleClickLogo = () => {
     navigate("/");
@@ -16,7 +18,7 @@ const Header = () => {
       </button>
 
       <div className="flex flex-row gap-1">
-        {data.success ? (
+        {userInfo?.success ? (
           <Link to="/mypage">마이페이지</Link>
         ) : (
           <Link to="/login">로그인</Link>

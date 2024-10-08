@@ -1,11 +1,14 @@
 import { CookiesProvider } from "react-cookie";
 import { RouterProvider } from "react-router-dom";
+import QueryProvider from "./providers/QueryProvider";
 import router from "./routes/router";
 
 function App() {
   return (
     <CookiesProvider>
-      <RouterProvider router={router} />
+      <QueryProvider>
+        <RouterProvider router={router} />
+      </QueryProvider>
     </CookiesProvider>
   );
 }
