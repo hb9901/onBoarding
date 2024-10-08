@@ -4,6 +4,14 @@ export type TrequestUserInfo = {
 };
 
 export type TresponseUserInfo = {
+  id: string;
   avatar: string | null;
   nickname: string;
+  success: boolean;
 };
+
+export type TnoneUserInfo = {
+  success: false;
+};
+
+export type TuserInfo = TresponseUserInfo | TnoneUserInfo;

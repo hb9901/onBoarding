@@ -5,12 +5,12 @@ import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
 import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
-import DefaultLayout from "./DefaultRouter";
+import DefaultRouter from "./DefaultRouter";
 import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {
-    element: <DefaultLayout />,
+    element: <DefaultRouter />,
     children: [
       {
         path: "/",
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
     ],
+    loader: () => userInfoLoader(),
   },
   {
     element: <PrivateRouter />,
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
         loader: () => userInfoLoader(),
       },
     ],
+    loader: () => userInfoLoader(),
   },
   {
     path: "/*",
