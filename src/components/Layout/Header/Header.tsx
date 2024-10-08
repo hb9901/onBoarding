@@ -17,11 +17,10 @@ const Header = () => {
 
       <div className="flex flex-row gap-1">
         {data.success ? (
-          <Link to="/mypage">MyPage</Link>
+          <Link to="/mypage">마이페이지</Link>
         ) : (
           <>
-            <Link to="login">Login</Link>
-            <Link to="signUp">signUp</Link>
+            <Link to="login">로그인</Link>
           </>
         )}
       </div>

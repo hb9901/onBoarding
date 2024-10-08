@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <div className="flex flex-col gap-[20px] bg-slate-100 border-slate-400 border-t-[1px] pt-[15px] pl-[10px] pb-[15px]">
+      <div className="flex flex-col gap-[20px] w-full bg-slate-100 border-slate-400 border-t-[1px] pt-[15px] pl-[10px] pb-[15px]">
         <div className="flex flex-row gap-[10px] items-end">
           <span className="text-[20px]">Yolo</span>
           <span className="text-[11px]">onBoarding Project</span>
