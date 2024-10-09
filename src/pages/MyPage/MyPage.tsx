@@ -3,10 +3,9 @@ import { ChangeEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
 import api from "../../api/api";
+import Button from "../../components/Button";
 import TextInput from "../../components/TextInput/TextInput";
-import {
-  TresponseUserInfo
-} from "../../types/userInfo.type";
+import { TresponseUserInfo } from "../../types/userInfo.type";
 import { myPageSchema } from "./myPageSchema";
 
 const MyPage = () => {
@@ -59,19 +58,44 @@ const MyPage = () => {
     };
   };
   return (
-    <div>
-      <strong>MyPage</strong>
-      <form onSubmit={(e) => handleSubmit(onSubmit)(e)}>
-        {imageURL && <img src={imageURL.toString()} />}
-        <input type="file" onChange={handleProfileImageChange} />
-        <TextInput
-          label="nickname"
-          type="text"
-          errors={errors}
-          {...register("nickname")}
-        />
-        <button>제출</button>
-      </form>
+    <div className="flex flex-col px-[20px] pt-[60px] lg:items-center">
+      <div className="border-2 border-solid border-red-400 p-[20px] lg:min-w-[600px] ">
+        <strong className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
+          MyPage
+        </strong>
+        <form
+          onSubmit={(e) => handleSubmit(onSubmit)(e)}
+          className="flex flex-col gap-[10px]"
+        >
+          <div className="flex flex-col items-center">
+            <label
+              htmlFor="imgFile"
+              className="flex items-center justify-center aspect-auto w-[160px] h-[160px] rounded-full cursor-pointer"
+            >
+              {imageURL && (
+                <img
+                  src={imageURL.toString()}
+                  className="w-[160px] h-[160px] object-cover rounded-full"
+                />
+              )}
+            </label>
+            <input
+              id="imgFile"
+              type="file"
+              onChange={handleProfileImageChange}
+              className="hidden"
+            />
+          </div>
+          <TextInput
+            label="닉네임"
+            type="text"
+            errors={errors}
+            registerId="nickname"
+            {...register("nickname")}
+          />
+          <Button>프로필 수정</Button>
+        </form>
+      </div>
     </div>
   );
 };

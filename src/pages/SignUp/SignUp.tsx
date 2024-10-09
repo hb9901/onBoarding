@@ -28,40 +28,42 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-150px)] justify-center px-[20px]">
-      <div className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
-        회원가입
-      </div>
-      <form
-        onSubmit={(e) => handleSubmit(onSubmit)(e)}
-        className="flex flex-col gap-[10px]"
-      >
-        <TextInput
-          label="아이디"
-          type="text"
-          errors={errors}
-          registerId="id"
-          {...register("id")}
-        />
-        <TextInput
-          label="패스워드"
-          type="password"
-          errors={errors}
-          registerId="password"
-          {...register("password")}
-        />
-        <TextInput
-          label="닉네임"
-          type="text"
-          errors={errors}
-          registerId="nickname"
-          {...register("nickname")}
-        />
-        <Button>회원가입</Button>
-        <div className="flex flex-row justify-center pt-[10px] text-slate-500 text-[14px]">
-          <Link to="/logIn">로그인하기</Link>
+    <div className="flex flex-col h-[calc(100vh-150px)] justify-center px-[20px] lg:items-center">
+      <div className="border-2 border-solid border-red-400 p-[20px] lg:min-w-[600px]">
+        <div className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
+          회원가입
         </div>
-      </form>
+        <form
+          onSubmit={(e) => handleSubmit(onSubmit)(e)}
+          className="flex flex-col gap-[10px]"
+        >
+          <TextInput
+            label="아이디"
+            type="text"
+            errors={errors}
+            registerId="id"
+            {...register("id")}
+          />
+          <TextInput
+            label="패스워드"
+            type="password"
+            errors={errors}
+            registerId="password"
+            {...register("password")}
+          />
+          <TextInput
+            label="닉네임"
+            type="text"
+            errors={errors}
+            registerId="nickname"
+            {...register("nickname")}
+          />
+          <Button>회원가입</Button>
+          <div className="flex flex-row justify-center pt-[10px] text-slate-500 text-[14px]">
+            <Link to="/logIn">로그인하기</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

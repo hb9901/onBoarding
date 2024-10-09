@@ -28,8 +28,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-150px)] justify-center px-[20px]">
-      <div className="flex flex-col border-red-600 border-[15px]">
+    <div className="flex flex-col h-[calc(100vh-150px)] justify-center px-[20px] lg:items-center">
+      <div className="flex flex-col border-2 border-solid border-red-400 p-[20px] lg:min-w-[600px]">
         <div className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
           로그인
         </div>
