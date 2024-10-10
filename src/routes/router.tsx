@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout";
+import moviesLoader from "../loaders/movieInfo.loader";
 import userInfoLoader from "../loaders/userInfo.loader";
 import Login from "../pages/Login";
 import Main from "../pages/Main";
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Main />,
+        loader: () => moviesLoader(),
       },
     ],
     loader: () => userInfoLoader(),
