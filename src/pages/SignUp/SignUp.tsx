@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import useAuth from "../../hooks/useAuth";
+import useToastStore from "../../store/toast.store";
 import { signUpSchema } from "./signUpSchema";
 
 const SignUp = () => {
+  const id = crypto.randomUUID();
   const navigate = useNavigate();
   const { signUp } = useAuth({});
+  const setToastOpen = useToastStore((state) => state.setToastOpen);
   const {
     register,
     handleSubmit,
@@ -20,11 +23,20 @@ const SignUp = () => {
   const onSubmit = async (value: FieldValues) => {
     signUpSchema.parse(value);
     const reponse = await signUp(value);
-    
+
     if (reponse.success) {
-      alert("회원가입 성공!");
+      setToastOpen({
+        id,
+        content: "회원가입에 성공하였습니다.",
+        delay: 5000,
+      });
       navigate("/login");
-    } else alert(reponse.message);
+    } else
+      setToastOpen({
+        id,
+        content: reponse.error,
+        delay: 5000,
+      });
   };
 
   return (

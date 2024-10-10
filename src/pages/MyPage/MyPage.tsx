@@ -5,13 +5,16 @@ import { useLoaderData } from "react-router-dom";
 import api from "../../api/api";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput/TextInput";
+import useToastStore from "../../store/toast.store";
 import { TresponseUserInfo } from "../../types/userInfo.type";
 import { myPageSchema } from "./myPageSchema";
 
 const MyPage = () => {
+  const id = crypto.randomUUID();
   const { avatar, nickname } = useLoaderData() as TresponseUserInfo;
   const [imageFile, setImageFile] = useState<File | null>();
   const [imageURL, setImageURL] = useState<string | ArrayBuffer | null>(avatar);
+  const setToastOpen = useToastStore((state) => state.setToastOpen);
 
   const {
     register,
@@ -27,7 +30,11 @@ const MyPage = () => {
   const onSubmit = async (value: FieldValues) => {
     myPageSchema.parse(value);
     if (!imageFile) {
-      alert("이미지가 없습니다");
+      setToastOpen({
+        id,
+        content: "이미지 파일을 변경해주세요.",
+        delay: 5000,
+      });
       return;
     }
     const userInfo = {

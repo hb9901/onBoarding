@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import useAuth from "../../hooks/useAuth";
+import useToastStore from "../../store/toast.store";
 import { logInSchema } from "./LoginSchema";
 
 const Login = () => {
+  const id = crypto.randomUUID();
   const navigate = useNavigate();
   const { logIn } = useAuth({});
+  const setToastOpen = useToastStore((state) => state.setToastOpen);
   const {
     register,
     handleSubmit,
@@ -22,11 +25,14 @@ const Login = () => {
     const reponse = await logIn(value);
 
     if (reponse.success) {
-      alert("로그인 성공!");
       navigate("/");
     } else {
-      alert(reponse.message);
-      throw new Error("로그인 실패!");
+      setToastOpen({
+        id,
+        content: "로그인에 실패하였습니다.",
+        delay: 5000,
+      });
+      throw new Error("로그인에 실패하였습니다.");
     }
   };
 

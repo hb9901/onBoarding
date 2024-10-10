@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 flex flex-row w-full px-[20px] py-[10px] justify-between items-center bg-red-400">
+    <header className="sticky top-0 flex flex-row w-full px-[20px] py-[10px] justify-between items-center bg-red-400 z-20">
       <button className="w-[50px] h-[50px]" onClick={handleClickLogo}>
         <img src={YoloIcon} className="object-cover" />
       </button>
