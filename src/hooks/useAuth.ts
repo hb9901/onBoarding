@@ -22,14 +22,18 @@ const useAuth = ({ enabled = false, initialData }: useAuthProps) => {
     mutationFn: (data: FieldValues) => api.auth.signUp(data),
   });
 
-  const { mutateAsync: logIn } = useMutation({
+  const {
+    mutateAsync: logIn,
+    isError: logInError,
+    isSuccess: logInSuccess,
+  } = useMutation({
     mutationFn: (data: FieldValues) => api.auth.logIn(data, EXPIRE_TIME),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 
-  return { userInfo, signUp, logIn };
+  return { userInfo, signUp, logIn, logInError, logInSuccess };
 };
 
 export default useAuth;
