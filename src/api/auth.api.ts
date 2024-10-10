@@ -22,7 +22,7 @@ class authAPI {
         const message = error.response?.data?.message;
         return { message, success: false };
       } else {
-        throw new Error("에러가 발생하였습니다.");
+        throw new Error(error + "에러가 발생하였습니다.");
       }
     }
   }
@@ -48,7 +48,7 @@ class authAPI {
         const message = error.response?.data?.message;
         return { message, success: false };
       } else {
-        throw new Error("에러가 발생하였습니다.");
+        throw new Error(error + "에러가 발생하였습니다.");
       }
     }
   }

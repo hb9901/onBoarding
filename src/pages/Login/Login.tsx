@@ -8,7 +8,7 @@ import { logInSchema } from "./LoginSchema";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logIn, logInSuccess } = useAuth({});
+  const { logIn } = useAuth({});
   const {
     register,
     handleSubmit,
@@ -19,12 +19,15 @@ const Login = () => {
 
   const onSubmit = async (value: FieldValues) => {
     logInSchema.parse(value);
-    await logIn(value);
+    const reponse = await logIn(value);
 
-    if (logInSuccess) {
+    if (reponse.success) {
       alert("로그인 성공!");
       navigate("/");
-    } else alert("로그인 실패!");
+    } else {
+      alert(reponse.message);
+      throw new Error("로그인 실패!");
+    }
   };
 
   return (
