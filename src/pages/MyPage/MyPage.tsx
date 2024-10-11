@@ -42,8 +42,15 @@ const MyPage = () => {
       nickname: value.nickname,
     };
 
+    api.auth.updateToken();
     const data = await api.auth.updateUserInfo(userInfo);
-    console.log(data);
+    if (data) {
+      setToastOpen({
+        id,
+        content: data.message,
+        delay: 5000,
+      });
+    }
   };
 
   const handleProfileImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +58,19 @@ const MyPage = () => {
     const file = e.target.files[0];
 
     if (!file) {
+      setToastOpen({
+        id,
+        content: "잘못된 파일입니다.",
+        delay: 5000,
+      });
       return;
     }
-    if (file.size > 3000000) {
+    if (file.size > 300000) {
+      setToastOpen({
+        id,
+        content: "이미지 파일이 너무 큽니다.",
+        delay: 5000,
+      });
       return;
     }
     setImageFile(file);

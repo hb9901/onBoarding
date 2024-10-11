@@ -19,8 +19,7 @@ class MovieAPI {
         },
       });
       const responseData = response.data;
-
-      console.log(responseData);
+      
       return responseData;
     } catch (error) {
       if (axios.isAxiosError(error)) {
