@@ -4,6 +4,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
 import api from "../../api/api";
 import Button from "../../components/Button";
+import Card from "../../components/Card";
 import TextInput from "../../components/TextInput/TextInput";
 import useToastStore from "../../store/toast.store";
 import { TresponseUserInfo } from "../../types/userInfo.type";
@@ -60,7 +61,7 @@ const MyPage = () => {
     if (!file) {
       setToastOpen({
         id,
-        content: "잘못된 파일입니다.",
+        content: "잘못된 입니다.",
         delay: 5000,
       });
       return;
@@ -83,7 +84,7 @@ const MyPage = () => {
   };
   return (
     <div className="flex flex-col px-[20px] pt-[60px] lg:items-center">
-      <div className="border-2 border-solid border-red-400 p-[20px] lg:min-w-[600px] ">
+      <Card>
         <strong className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
           MyPage
         </strong>
@@ -119,7 +120,7 @@ const MyPage = () => {
           />
           <Button>프로필 수정</Button>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

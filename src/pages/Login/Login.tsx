@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import Card from "../../components/Card";
 import TextInput from "../../components/TextInput/TextInput";
 import useAuth from "../../hooks/useAuth";
 import useToastStore from "../../store/toast.store";
@@ -38,7 +39,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-150px)] justify-center px-[20px] lg:items-center">
-      <div className="flex flex-col border-2 border-solid border-red-400 p-[20px] lg:min-w-[600px]">
+      <Card>
         <div className="flex flex-row justify-center pb-[30px] font-bold text-[20px]">
           로그인
         </div>
@@ -67,7 +68,7 @@ const Login = () => {
             <Link to="/signUp">회원가입하기</Link>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

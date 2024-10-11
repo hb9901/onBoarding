@@ -27,7 +27,7 @@ const Header = () => {
           <div className="flex felx-row gap-2">
             <Link to="/mypage">마이페이지</Link>
             <span>|</span>
-            <a onClick={handleClickLogOut}>로그아웃</a>
+            <a onClick={handleClickLogOut} className="cursor-pointer">로그아웃</a>
           </div>
         ) : (
           <Link to="/login">로그인</Link>
