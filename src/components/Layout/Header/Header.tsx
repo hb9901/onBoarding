@@ -1,6 +1,6 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import YoloIcon from "../../../icons/YoloIcon.svg";
+import YoloIcon from "../../../icons/YoloIcon";
 import { TuserInfo } from "../../../types/userInfo.type";
 
 const Header = () => {
@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 flex flex-row w-full px-[20px] py-[10px] justify-between items-center bg-red-400 z-20">
       <button className="w-[50px] h-[50px]" onClick={handleClickLogo}>
-        <img src={YoloIcon} className="object-cover" />
+        <YoloIcon />
       </button>
 
       <div className="flex flex-row gap-1 font-bold">
@@ -27,7 +27,7 @@ const Header = () => {
           <div className="flex felx-row gap-2">
             <Link to="/mypage">마이페이지</Link>
             <span>|</span>
-            <button onClick={handleClickLogOut}>로그아웃</button>
+            <a onClick={handleClickLogOut}>로그아웃</a>
           </div>
         ) : (
           <Link to="/login">로그인</Link>
