@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import Footer from "../components/Layout/Footer";
+import Header from "../components/Layout/Header";
 
-describe("Footer", () => {
+describe("Header", () => {
   it("render tasks", async () => {
-    const { container } = render(<Footer />);
+    const { container } = render(<Header />);
     expect(container).toHaveTextContent("Yolo");
   });
 });

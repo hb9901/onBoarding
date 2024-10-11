@@ -2,6 +2,7 @@ export default {
   testEnvironment: "jsdom",
   transform: {
     "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.svg$": "<rootDir>/svgTransform.ts",
   },
   moduleNameMapper: {
     "^.+\\.svg$": "jest-svg-transformer",

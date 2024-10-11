@@ -5,11 +5,13 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "Node",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    },
+    }
   }
 }
