@@ -29,7 +29,13 @@ const useAuth = ({ enabled = false, initialData }: useAuthProps) => {
     },
   });
 
-  return { userInfo, signUp, logIn };
+  const { mutateAsync: logOut } = useMutation({
+    mutationFn: () => api.auth.logOut(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+  return { userInfo, signUp, logIn, logOut };
 };
 
 export default useAuth;

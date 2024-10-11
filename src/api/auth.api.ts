@@ -1,16 +1,15 @@
 import axios, { AxiosInstance } from "axios";
 import { FieldValues } from "react-hook-form";
 import { TrequestUserInfo } from "../types/userInfo.type";
-import { getCookie, setCookie } from "../utils/cookieFunctions";
+import { getCookie, removeCookie, setCookie } from "../utils/cookieFunctions";
 
 class authAPI {
   #axios: AxiosInstance;
   #accessToken: string | null;
 
   constructor(axios: AxiosInstance) {
-    const accessToken = getCookie("accessToken");
     this.#axios = axios;
-    this.#accessToken = accessToken;
+    this.#accessToken = null;
 
     this.#axios.interceptors.request.use((config) => {
       if (this.#accessToken) {
@@ -48,6 +47,7 @@ class authAPI {
       const response = await this.#axios.post(path, userInfo);
       const responseData = response.data;
       const accessToken = responseData.accessToken;
+      this.#accessToken = accessToken;
 
       if (accessToken) {
         setCookie("accessToken", accessToken, {
@@ -79,7 +79,6 @@ class authAPI {
       const reponseData = response.data;
       return reponseData;
     } catch (error) {
-      console.log(error);
       return { message: error, success: false };
     }
   }
@@ -97,6 +96,13 @@ class authAPI {
     });
     const reponseData = response.data;
     return reponseData;
+  }
+
+  async logOut() {
+    this.#accessToken = null;
+    removeCookie("accessToken");
+
+    return { message: "로그아웃 성공", success: false };
   }
 }
 

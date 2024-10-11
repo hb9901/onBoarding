@@ -5,9 +5,14 @@ import { TuserInfo } from "../../../types/userInfo.type";
 
 const Header = () => {
   const data = useLoaderData() as TuserInfo;
-  const { userInfo } = useAuth({ enabled: true, initialData: data });
+  const { userInfo, logOut } = useAuth({ enabled: true, initialData: data });
   const navigate = useNavigate();
   const handleClickLogo = () => {
+    navigate("/");
+  };
+
+  const handleClickLogOut = () => {
+    logOut();
     navigate("/");
   };
 
@@ -17,9 +22,13 @@ const Header = () => {
         <img src={YoloIcon} className="object-cover" />
       </button>
 
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row gap-1 font-bold">
         {userInfo?.success ? (
-          <Link to="/mypage">마이페이지</Link>
+          <div className="flex felx-row gap-2">
+            <Link to="/mypage">마이페이지</Link>
+            <span>|</span>
+            <button onClick={handleClickLogOut}>로그아웃</button>
+          </div>
         ) : (
           <Link to="/login">로그인</Link>
         )}
